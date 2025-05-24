@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatbot on Iphones</title>
+</head>
+<style>
+  body{
+    font: "Calibri";
+    text-align:center;
+    padding: 30px;
+    background: #6db8f5;
+  }
+  input, button {
+        padding: 10px;
+        width: 50%;
+        box-sizing: border-box;
+        border-radius: 9px;
+         margin :10px;
+        background: #FFFFFF;
+    }
+</style>
+<body>
+  <h2>Ask a question on Iphones</h2>
+  <input type="text" id="question" placeholder="Type the question" />
+  <button onclick="ask()">Ask</button>
+  <p id="answer"></p>
+
+  <script>
+    async function ask() {
+      const question = document.getElementById('question').value;
+      const response = await fetch('/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await response.json();
+      document.getElementById('answer').textContent = data.answer;
+    }
+  </script>
+</body>
+</html>
